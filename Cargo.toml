@@ -4,6 +4,7 @@ version = "0.1.0"
 edition = "2021"
 license = "MIT"
 description = "Treats two-dimensional arrays as matrices and introduces matrix operations"
+repository = "https://github.com/sigurd4/array-matrix"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 

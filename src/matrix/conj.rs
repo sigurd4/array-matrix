@@ -24,7 +24,7 @@ where
     ///     [a[0][0].conj(), a[0][1].conj()],
     ///     [a[1][0].conj(), a[1][1].conj()]
     /// ];
-    /// assert_eq!(a, a_);
+    /// assert_eq!(a.conj(), a_);
     /// ```
     fn conj(&self) -> Self::Output;
 }

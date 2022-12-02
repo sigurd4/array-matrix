@@ -9,7 +9,7 @@ where Self::Output: Vector
 
     /// Returns the cross product of a 3- or 7-dimensional vector pair.
     /// 
-    /// A×B
+    /// u×v
     /// 
     /// # Arguments
     /// 
@@ -18,10 +18,10 @@ where Self::Output: Vector
     /// # Examples
     /// 
     /// ```rust
-    /// let a = [1.0, 0.0, 0.0];
-    /// let b = [0.0, 1.0, 0.0];
-    /// let ab = [0.0, 0.0, 1.0];
-    /// assert_eq!(a.cross(b), ab);
+    /// let u = [1.0, 0.0, 0.0];
+    /// let v = [0.0, 1.0, 0.0];
+    /// let uv = [0.0, 0.0, 1.0];
+    /// assert_eq!(u.cross(v), uv);
     /// ```
     fn cross(self, rhs: Rhs) -> Self::Output;
 }

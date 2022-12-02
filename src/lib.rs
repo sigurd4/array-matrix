@@ -86,22 +86,24 @@ mod tests {
     #[test]
     fn eig()
     {
-        let a: [[f32; 2]; 2] = [
-            [1.0, -0.8],
-            [-3.0, 0.5]
+        let a: [[f32; 3]; 3] = [
+            [1.0, -2.5, 2.0],
+            [-2.0, 1.0, -3.0],
+            [1.0, -1.5, 1.0]
         ];
-        let eigs: Vec<String> = a.eig().iter().map(|yn| yn.to_string()).collect();
+        let eig: Vec<String> = a.eig().iter().map(|yn| yn.to_string()).collect();
         println!("detA = {}", a.det());
-        println!("lambda = {}", eigs.join(", "));
+        println!("lambda = [\n{}\n]", eig.join("\n"));
         println!("mul lambda = {}", a.eig().iter().map(|l| *l).reduce(|a, b| a*b).unwrap());
     }
 
     #[test]
     fn qr()
     {
-        let a: [[f32; 2]; 2] = [
+        let a: [[f32; 2]; 3] = [
             [1.0, -0.8],
-            [-3.0, 0.5]
+            [-3.0, -0.5],
+            [4.0, 5.0]
         ];
         println!("a = [\n{}\n]", a.map(|ar| ar.map(|arc| arc.to_string()).join(", ")).join("\n"));
         let (q, r) = a.qr_householder();

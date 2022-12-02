@@ -86,14 +86,7 @@ where
                     ).collect()
                 ).collect()
         }
-        let mut r = q.transpose().mul(self.clone());
-        for i in 0..L
-        {
-            for j in i + 1..H
-            {
-                r[j][i] = Complex::zero();
-            }
-        }
+        let r = q.transpose().mul(self.clone());
         return (q, r)
     }
 }

@@ -15,7 +15,7 @@ where
 
     /// Returns the adjugate matrix of the given square matrix
     /// 
-    /// Adj(A)
+    /// adj(A)
     /// 
     /// # Examples
     /// 

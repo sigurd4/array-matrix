@@ -1,13 +1,13 @@
 use std::ops::Mul;
 
-use crate::{matrix_init, Matrix};
+use crate::{matrix_init, Matrix, Vector};
 
-pub trait Outer<Rhs>
+pub trait Outer<Rhs: Vector>: Vector
 where Self::Output: Matrix
 {
     type Output;
     
-    /// Returns the outer product of two vector arrays
+    /// Returns the outer product of two vector-arrays
     /// 
     /// u ⊗ v
     /// 
@@ -33,8 +33,10 @@ where Self::Output: Matrix
 
 impl<F, const L: usize, const H: usize> Outer<[F; L]> for [F; H]
 where
+    Self: Vector,
+    [F; L]: Vector,
     [[<F as Mul<F>>::Output; L]; H]: Matrix,
-    F: Copy + Mul<F>
+    F: Mul<F> + Copy
 {
     type Output = [[<F as Mul<F>>::Output; L]; H];
     fn outer(self, rhs: [F; L]) -> Self::Output

@@ -5,35 +5,39 @@ pub mod det;
 pub mod submatrix;
 pub mod inv;
 pub mod transpose;
-pub mod dot;
 pub mod add;
+pub mod sub;
 pub mod trace;
 pub mod adj;
 pub mod minor;
 pub mod cofactor;
-pub mod cross;
 pub mod kronecker;
 pub mod mul;
-pub mod outer;
 pub mod conj;
 pub mod herm;
+pub mod eig;
+pub mod diag;
+pub mod qr_householder;
+pub mod div;
 
 pub use self::det::*;
 pub use self::submatrix::*;
 pub use self::inv::*;
 pub use self::transpose::*;
-pub use self::dot::*;
 pub use self::add::*;
+pub use self::sub::*;
 pub use self::trace::*;
 pub use self::adj::*;
 pub use self::minor::*;
 pub use self::cofactor::*;
-pub use self::cross::*;
 pub use self::kronecker::*;
 pub use self::mul::*;
-pub use self::outer::*;
 pub use self::conj::*;
 pub use self::herm::*;
+pub use self::eig::*;
+pub use self::diag::*;
+pub use self::qr_householder::*;
+pub use self::div::*;
 
 pub trait Matrix: Sized
 {

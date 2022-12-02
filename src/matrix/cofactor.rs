@@ -8,7 +8,7 @@ where
 
     /// Returns the cofactor matrix of the given matrix
     /// 
-    /// Adj(A)ᵀ
+    /// adj(A)ᵀ
     /// 
     /// # Examples
     /// 

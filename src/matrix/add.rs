@@ -4,7 +4,7 @@ use crate::Matrix;
 
 use super::matrix_init;
 
-pub trait MAdd<Rhs>: Matrix
+pub trait MAdd<Rhs: Matrix>: Matrix
 where
     Self::Output: Matrix
 {
@@ -41,6 +41,7 @@ where
 impl<T1, T2, const H: usize, const L: usize> MAdd<[[T2; L]; H]> for [[T1; L]; H]
 where
     Self: Matrix,
+    [[T2; L]; H]: Matrix,
     [[<T1 as Add<T2>>::Output; L]; H]: Matrix,
     T1: Add<T2> + Copy,
     T2: Copy

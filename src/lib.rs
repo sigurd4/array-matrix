@@ -1,22 +1,21 @@
 #![feature(generic_const_exprs)]
+#![feature(portable_simd)]
 #![recursion_limit = "256"]
 #[allow(incomplete_features)]
 #[allow(const_evaluatable_unchecked)]
 
 pub mod matrix;
+pub mod vector;
 pub use crate::matrix::*;
+pub use crate::vector::*;
 
 #[cfg(test)]
 mod tests {
-    use crate::{Det, MAdd, Trace, Matrix, MInv, Cross, MMul};
+    use crate::{Det, MAdd, Trace, Matrix, MInv, Cross, MMul, Eig, QRHouseholder};
 
     #[test]
     fn test_det()
     {
-        let a = [
-            [1, 2, 3]
-        ];
-
         let a = [1.0, 0.0, 0.0];
         let b = [0.0, 1.0, 0.0];
         let ab = a.cross(b);
@@ -82,5 +81,33 @@ mod tests {
         }
 
         println!("{}", y.map(|yn| yn.to_string()).join(", "))
+    }
+
+    #[test]
+    fn eig()
+    {
+        let a: [[f32; 2]; 2] = [
+            [1.0, -0.8],
+            [-3.0, 0.5]
+        ];
+        let eigs: Vec<String> = a.eig().iter().map(|yn| yn.to_string()).collect();
+        println!("detA = {}", a.det());
+        println!("lambda = {}", eigs.join(", "));
+        println!("mul lambda = {}", a.eig().iter().map(|l| *l).reduce(|a, b| a*b).unwrap());
+    }
+
+    #[test]
+    fn qr()
+    {
+        let a: [[f32; 2]; 2] = [
+            [1.0, -0.8],
+            [-3.0, 0.5]
+        ];
+        println!("a = [\n{}\n]", a.map(|ar| ar.map(|arc| arc.to_string()).join(", ")).join("\n"));
+        let (q, r) = a.qr_householder();
+        println!("q = [\n{}\n]", q.map(|ar| ar.map(|arc| arc.to_string()).join(", ")).join("\n"));
+        println!("r = [\n{}\n]", r.map(|ar| ar.map(|arc| arc.to_string()).join(", ")).join("\n"));
+        let qr = q.mul(r);
+        println!("qr = [\n{}\n]", qr.map(|ar| ar.map(|arc| arc.to_string()).join(", ")).join("\n"));
     }
 }

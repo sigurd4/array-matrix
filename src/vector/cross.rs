@@ -1,8 +1,9 @@
 use std::ops::Add;
 
-use crate::Det;
+use crate::{Det, Vector};
 
-pub trait Cross<Rhs>
+pub trait Cross<Rhs: Vector>: Vector
+where Self::Output: Vector
 {
     type Output;
 
@@ -26,7 +27,11 @@ pub trait Cross<Rhs>
 }
 
 impl<F> Cross<[F; 3]> for [F; 3]
-where [[F; 2]; 2]: Det, F: Copy
+where 
+    Self: Vector,
+    [<[[F; 2]; 2] as Det>::Output; 3]: Vector,
+    [[F; 2]; 2]: Det,
+    F: Copy
 {
     type Output = [<[[F; 2]; 2] as Det>::Output; 3];
     fn cross(self, rhs: [F; 3]) -> Self::Output {
@@ -40,11 +45,15 @@ where [[F; 2]; 2]: Det, F: Copy
 
 impl<F> Cross<[F; 7]> for [F; 7]
 where
+    Self: Vector,
+    [<<<[[F; 2]; 2] as Det>::Output
+            as Add<<[[F; 2]; 2] as Det>::Output>>::Output
+                as Add<<[[F; 2]; 2] as Det>::Output>>::Output; 7]: Vector,
     [[F; 2]; 2]: Det,
-    F: Copy,
     <[[F; 2]; 2] as Det>::Output: Add,
     <<[[F; 2]; 2] as Det>::Output as Add<<[[F; 2]; 2] as Det>::Output>>::Output:
-        Add<<[[F; 2]; 2] as Det>::Output>
+        Add<<[[F; 2]; 2] as Det>::Output>,
+    F: Copy
 {
     type Output = [
         <<<[[F; 2]; 2] as Det>::Output

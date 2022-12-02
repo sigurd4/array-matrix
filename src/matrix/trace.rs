@@ -9,7 +9,7 @@ pub trait Trace: SquareMatrix
 
     /// Returns the trace of a given matrix
     /// 
-    /// Tr(A)
+    /// tr(A)
     /// 
     /// # Examples
     /// 

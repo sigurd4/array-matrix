@@ -2,11 +2,13 @@ use std::ops::{Mul, Add};
 
 use num_traits::Zero;
 
-pub trait Dot<Rhs>
+use crate::Vector;
+
+pub trait Dot<Rhs: Vector>: Vector
 {
     type Output;
 
-    /// Returns the dot product of two vector arrays
+    /// Returns the scalar dot product of two vector-arrays
     /// 
     /// u ⋅ v
     /// 
@@ -28,7 +30,8 @@ pub trait Dot<Rhs>
 
 impl<F, const L: usize> Dot<[F; L]> for [F; L]
 where
-    F: Copy + Mul<F, Output = F> + Add<F, Output = F> + Zero
+    Self: Vector,
+    F: Mul<F, Output = F> + Add<F, Output = F> + Zero + Copy
 {
     type Output = F;
     fn dot(self, rhs: [F; L]) -> Self::Output

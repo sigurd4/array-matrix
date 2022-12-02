@@ -17,7 +17,7 @@ pub trait Det: SquareMatrix
     /// 
     /// ```rust
     /// let a = [
-    ///     [1.0, 0.0]
+    ///     [1.0, 0.0],
     ///     [0.0, 1.0]
     /// ];
     /// assert_eq!(a.det(), 1.0);

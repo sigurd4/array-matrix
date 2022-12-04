@@ -1,6 +1,6 @@
 [package]
 name = "array-matrix"
-version = "0.1.3"
+version = "0.1.4"
 edition = "2021"
 license = "MIT"
 description = "Treats two-dimensional arrays as matrices and introduces matrix operations"

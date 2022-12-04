@@ -45,7 +45,7 @@ where
     }
 }
 
-impl<F: Neg<Output = F> + Copy> Adj for [[F; 2]; 2]
+impl<F: Neg<Output = F> + Clone> Adj for [[F; 2]; 2]
 where
     Self: SquareMatrix
 {
@@ -54,8 +54,8 @@ where
     fn adj(&self) -> Self::Output
     {
         [
-            [self[1][1], -self[0][1]],
-            [-self[1][0], self[0][0]]
+            [self[1][1].clone(), -self[0][1].clone()],
+            [-self[1][0].clone(), self[0][0].clone()]
         ]
     }
 }

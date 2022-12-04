@@ -37,11 +37,11 @@ impl<F, const L: usize, const H: usize> MDiv<F> for [[F; L]; H]
 where
     Self: Matrix,
     [[<F as Div<F>>::Output; L]; H]: Matrix,
-    F: Copy + Div<F>
+    F: Clone + Div<F>
 {
     type Output = [[<F as Div<F>>::Output; L]; H];
     fn div(self, rhs: F) -> Self::Output
     {
-        matrix_init(|r, c| self[r][c]/rhs)
+        matrix_init(|r, c| self[r][c].clone()/rhs.clone())
     }
 }

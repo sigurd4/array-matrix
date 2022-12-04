@@ -31,14 +31,14 @@ where
     Self: Vector,
     [<[[F; 2]; 2] as Det>::Output; 3]: Vector,
     [[F; 2]; 2]: Det,
-    F: Copy
+    F: Clone
 {
     type Output = [<[[F; 2]; 2] as Det>::Output; 3];
     fn cross(self, rhs: [F; 3]) -> Self::Output {
         use array_init::array_init;
         array_init(|i| [
-            [self[(1 + i)%3], self[(2 + i)%3]],
-            [rhs[(1 + i)%3], rhs[(2 + i)%3]]
+            [self[(1 + i)%3].clone(), self[(2 + i)%3].clone()],
+            [rhs[(1 + i)%3].clone(), rhs[(2 + i)%3].clone()]
         ].det())
     }
 }
@@ -53,7 +53,7 @@ where
     <[[F; 2]; 2] as Det>::Output: Add,
     <<[[F; 2]; 2] as Det>::Output as Add<<[[F; 2]; 2] as Det>::Output>>::Output:
         Add<<[[F; 2]; 2] as Det>::Output>,
-    F: Copy
+    F: Clone
 {
     type Output = [
         <<<[[F; 2]; 2] as Det>::Output
@@ -62,14 +62,14 @@ where
     fn cross(self, rhs: [F; 7]) -> Self::Output {
         use array_init::array_init;
         array_init(|i| [
-            [self[(1 + i)%7], self[(3 + i)%7]],
-            [rhs[(1 + i)%7], rhs[(3 + i)%7]]
+            [self[(1 + i)%7].clone(), self[(3 + i)%7].clone()],
+            [rhs[(1 + i)%7].clone(), rhs[(3 + i)%7].clone()]
         ].det() + [
-            [self[(2 + i)%7], self[(6 + i)%7]],
-            [rhs[(2 + i)%7], rhs[(6 + i)%7]]
+            [self[(2 + i)%7].clone(), self[(6 + i)%7].clone()],
+            [rhs[(2 + i)%7].clone(), rhs[(6 + i)%7].clone()]
         ].det() + [
-            [self[(4 + i)%7], self[(5 + i)%7]],
-            [rhs[(4 + i)%7], rhs[(5 + i)%7]]
+            [self[(4 + i)%7].clone(), self[(5 + i)%7].clone()],
+            [rhs[(4 + i)%7].clone(), rhs[(5 + i)%7].clone()]
         ].det())
     }
 }

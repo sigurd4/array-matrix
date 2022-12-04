@@ -32,13 +32,13 @@ where
     Self: Vector,
     [T2; L]: Vector,
     [<T1 as Add<T2>>::Output; L]: Vector,
-    T1: Add<T2> + Copy,
-    T2: Copy
+    T1: Add<T2> + Clone,
+    T2: Clone
 {
     type Output = [<T1 as Add<T2>>::Output; L];
 
     fn add(self, rhs: [T2; L]) -> Self::Output
     {
-        array_init::array_init(|i| self[i] + rhs[i])
+        array_init::array_init(|i| self[i].clone() + rhs[i].clone())
     }
 }

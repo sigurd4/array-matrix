@@ -28,11 +28,11 @@ pub trait Trace: SquareMatrix
 impl<F, const N: usize> Trace for [[F; N]; N]
 where
     Self: SquareMatrix,
-    F: Add<F, Output = F> + Copy + Zero
+    F: Add<F, Output = F> + Clone + Zero
 {
     type Output = F;
     fn trace(&self) -> Self::Output
     {
-        (0..N).map(|i| self[i][i]).reduce(|a, b| a + b).unwrap_or(F::zero())
+        (0..N).map(|i| self[i][i].clone()).reduce(|a, b| a + b).unwrap_or(F::zero())
     }
 }

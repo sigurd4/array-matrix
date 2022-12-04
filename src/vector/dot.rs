@@ -31,11 +31,11 @@ pub trait Dot<Rhs: Vector>: Vector
 impl<F, const L: usize> Dot<[F; L]> for [F; L]
 where
     Self: Vector,
-    F: Mul<F, Output = F> + Add<F, Output = F> + Zero + Copy
+    F: Mul<F, Output = F> + Add<F, Output = F> + Zero + Clone
 {
     type Output = F;
     fn dot(self, rhs: [F; L]) -> Self::Output
     {
-        (0..L).map(|i| self[i]*rhs[i]).reduce(|a, b| a + b).unwrap_or(F::zero())
+        (0..L).map(|i| self[i].clone()*rhs[i].clone()).reduce(|a, b| a + b).unwrap_or(F::zero())
     }
 }

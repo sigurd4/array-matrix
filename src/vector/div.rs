@@ -30,12 +30,12 @@ impl<F, R, const N: usize> VDiv<R> for [F; N]
 where
     Self: Vector,
     [<F as Div<R>>::Output; N]: Vector,
-    F: Div<R> + Copy,
-    R: Copy
+    F: Div<R> + Clone,
+    R: Clone
 {
     type Output = [<F as Div<R>>::Output; N];
     fn div(&self, rhs: R) -> Self::Output
     {
-        self.map(|x| x/rhs)
+        array_init::array_init(|i| self[i].clone()/rhs.clone())
     }
 }

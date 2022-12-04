@@ -29,7 +29,7 @@ where
     fn transpose(&self) -> Self::Output;
 }
 
-impl<F: Copy, const L: usize, const H: usize> Transpose for [[F; L]; H]
+impl<F: Clone, const L: usize, const H: usize> Transpose for [[F; L]; H]
 where
     Self: Matrix,
     [[F; H]; L]: Matrix
@@ -38,7 +38,7 @@ where
 
     fn transpose(&self) -> Self::Output
     {
-        matrix_init(|r, c| self[c][r])
+        matrix_init(|r, c| self[c][r].clone())
     }
 }
 

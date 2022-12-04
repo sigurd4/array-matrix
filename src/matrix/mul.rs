@@ -54,12 +54,12 @@ impl<F, const L: usize, const H: usize> MMul<F> for [[F; L]; H]
 where
     Self: Matrix,
     [[<F as Mul<F>>::Output; L]; H]: Matrix,
-    F: Copy + Mul<F>
+    F: Clone + Mul<F>
 {
     type Output = [[<F as Mul<F>>::Output; L]; H];
     fn mul(self, rhs: F) -> Self::Output
     {
-        matrix_init(|r, c| self[r][c]*rhs)
+        matrix_init(|r, c| self[r][c].clone()*rhs.clone())
     }
 }
 
@@ -69,12 +69,12 @@ for
 where
     Self: Matrix,
     [[<F as Mul<F>>::Output; H2]; H1]: Matrix,
-    F: Copy + Mul<F>,
+    F: Clone + Mul<F>,
     <F as Mul<F>>::Output: Add<<F as Mul<F>>::Output, Output = <F as Mul<F>>::Output>
 {
     type Output = [[<F as Mul<F>>::Output; H2]; H1];
     fn mul(self, rhs: [[F; H2]; L]) -> Self::Output
     {
-        matrix_init(|r, c| (0..L).map(|i| self[r][i]*rhs[i][c]).reduce(|a, b| a + b).unwrap())
+        matrix_init(|r, c| (0..L).map(|i| self[r][i].clone()*rhs[i][c].clone()).reduce(|a, b| a + b).unwrap())
     }
 }

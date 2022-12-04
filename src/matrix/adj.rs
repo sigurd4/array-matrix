@@ -62,7 +62,7 @@ where
 
 macro_rules! adj {
     ($i:expr) => {
-        impl<F: One + Neg<Output = F> + Copy> Adj for [[F; $i]; $i]
+        impl<F: One + Neg<Output = F>> Adj for [[F; $i]; $i]
         where
             Self: SquareMatrix + Minor<Output = F, Index = (usize, usize)>
         {

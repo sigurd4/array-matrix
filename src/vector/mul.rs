@@ -30,12 +30,12 @@ impl<F, R, const N: usize> VMul<R> for [F; N]
 where
     Self: Vector,
     [<F as Mul<R>>::Output; N]: Vector,
-    F: Mul<R> + Copy,
-    R: Copy
+    F: Mul<R> + Clone,
+    R: Clone
 {
     type Output = [<F as Mul<R>>::Output; N];
     fn mul(&self, rhs: R) -> Self::Output
     {
-        self.map(|x| x*rhs)
+        array_init::array_init(|i| self[i].clone()*rhs.clone())
     }
 }

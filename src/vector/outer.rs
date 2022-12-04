@@ -36,11 +36,11 @@ where
     Self: Vector,
     [F; L]: Vector,
     [[<F as Mul<F>>::Output; L]; H]: Matrix,
-    F: Mul<F> + Copy
+    F: Mul<F> + Clone
 {
     type Output = [[<F as Mul<F>>::Output; L]; H];
     fn outer(self, rhs: [F; L]) -> Self::Output
     {
-        matrix_init(|r, c| self[r]*rhs[c])
+        matrix_init(|r, c| self[r].clone()*rhs[c].clone())
     }
 }

@@ -33,7 +33,7 @@ where
 }
 
 
-impl<F: Copy, const L: usize, const H: usize> Submatrix<[[F; L - 1]; H]> for [[F; L]; H]
+impl<F: Clone, const L: usize, const H: usize> Submatrix<[[F; L - 1]; H]> for [[F; L]; H]
 where
     Self: Matrix,
     [[F; L - 1]; H]: Matrix
@@ -42,11 +42,11 @@ where
 
     fn submatrix(&self, r: usize) -> [[F; L - 1]; H]
     {
-        matrix_init(|i, j| self[(i + r + 1)%H][j])
+        matrix_init(|i, j| self[(i + r + 1)%H][j].clone())
     }
 }
 
-impl<F: Copy, const L: usize, const H: usize> Submatrix<[[F; L]; H - 1]> for [[F; L]; H]
+impl<F: Clone, const L: usize, const H: usize> Submatrix<[[F; L]; H - 1]> for [[F; L]; H]
 where
     Self: Matrix,
     [[F; L]; H - 1]: Matrix
@@ -55,11 +55,11 @@ where
 
     fn submatrix(&self, c: usize) -> [[F; L]; H - 1]
     {
-        matrix_init(|i, j| self[i][(j + c + 1)%L])
+        matrix_init(|i, j| self[i][(j + c + 1)%L].clone())
     }
 }
 
-impl<F: Copy, const L: usize, const H: usize> Submatrix<[[F; L - 1]; H - 1]> for [[F; L]; H]
+impl<F: Clone, const L: usize, const H: usize> Submatrix<[[F; L - 1]; H - 1]> for [[F; L]; H]
 where
     Self: Matrix,
     [[F; L - 1]; H - 1]: Matrix
@@ -68,6 +68,6 @@ where
 
     fn submatrix(&self, rc: (usize, usize)) -> [[F; L - 1]; H - 1]
     {
-        matrix_init(|i, j| self[(i + rc.0 + 1)%H][(j + rc.1 + 1)%L])
+        matrix_init(|i, j| self[(i + rc.0 + 1)%H][(j + rc.1 + 1)%L].clone())
     }
 }

@@ -46,13 +46,13 @@ for
 where
     Self: Matrix,
     [[F; L2]; H2]: Matrix,
-    F: Copy + Mul<F>,
+    F: Clone + Mul<F>,
     [[<F as Mul<F>>::Output; L1*L2]; H1*H2]: Matrix
 {
     type Output = [[<F as Mul<F>>::Output; L1*L2]; H1*H2];
 
     fn kronecker_mul(self, rhs: [[F; L2]; H2]) -> Self::Output
     {
-        matrix_init(|r, c| self[r/H1][c/L1]*rhs[r%H2][c%L2])
+        matrix_init(|r, c| self[r/H1][c/L1].clone()*rhs[r%H2][c%L2].clone())
     }
 }

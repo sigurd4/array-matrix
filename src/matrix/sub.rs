@@ -43,13 +43,13 @@ where
     Self: Matrix,
     [[T2; L]; H]: Matrix,
     [[<T1 as Sub<T2>>::Output; L]; H]: Matrix,
-    T1: Sub<T2> + Copy,
-    T2: Copy
+    T1: Sub<T2> + Clone,
+    T2: Clone
 {
     type Output = [[<T1 as Sub<T2>>::Output; L]; H];
 
     fn sub(self, rhs: [[T2; L]; H]) -> Self::Output
     {
-        matrix_init(|r, c| self[r][c] - rhs[r][c])
+        matrix_init(|r, c| self[r][c].clone() - rhs[r][c].clone())
     }
 }

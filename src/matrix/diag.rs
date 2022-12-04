@@ -19,11 +19,11 @@ pub trait Diag
 }
 
 impl<F, const L: usize, const H: usize> Diag for [[F; L]; H]
-where F: Copy
+where F: Clone
 {
     type Output = Vec<F>;
     fn diag(&self) -> Self::Output
     {
-        (0..L.min(H)).map(|i| self[i][i]).collect()
+        (0..L.min(H)).map(|i| self[i][i].clone()).collect()
     }
 }
